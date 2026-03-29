@@ -13,6 +13,9 @@ const minFarLabel = document.getElementById("minFarLabel");
 const resetBtn = document.getElementById("resetBtn");
 const visibleCountEl = document.getElementById("visibleCount");
 const avgFarEl = document.getElementById("avgFar");
+const filterPanel = document.getElementById("filterPanel");
+const closePanelBtn = document.getElementById("closePanelBtn");
+const openPanelBtn = document.getElementById("openPanelBtn");
 
 const styleForFar = (far) => {
   if (far < 4) return "#7bb684";
@@ -37,6 +40,15 @@ const popupHtml = (p) => `
 let sourceData = null;
 let geoLayer = null;
 
+function setPanelVisibility(isVisible) {
+  filterPanel.classList.toggle("is-hidden", !isVisible);
+  openPanelBtn.classList.toggle("is-visible", !isVisible);
+  openPanelBtn.setAttribute("aria-expanded", isVisible ? "true" : "false");
+
+  // Leaflet needs a size refresh when overlays are toggled on top.
+  setTimeout(() => map.invalidateSize(), 10);
+}
+
 function applyFilters() {
   if (!sourceData) return;
 
@@ -48,7 +60,6 @@ function applyFilters() {
     const boroughOk = selectedBorough === "all" || properties.borough === selectedBorough;
     const farOk = properties.allowed_far >= farThreshold;
     const overlayOk = !overlayOnlyOn || properties.affordable_overlay === true;
-
     return boroughOk && farOk && overlayOk;
   });
 
@@ -60,14 +71,13 @@ function applyFilters() {
     { type: "FeatureCollection", features: filteredFeatures },
     {
       style: ({ properties }) => ({
-        color: "#443f35",
+        color: "#3f4652",
         weight: 1,
         fillColor: styleForFar(properties.allowed_far),
         fillOpacity: 0.56
       }),
       onEachFeature: (feature, layer) => {
         layer.bindPopup(popupHtml(feature.properties));
-
         layer.on({
           mouseover: () => layer.setStyle({ weight: 3, fillOpacity: 0.72 }),
           mouseout: () => layer.setStyle({ weight: 1, fillOpacity: 0.56 })
@@ -105,11 +115,14 @@ minFar.addEventListener("input", () => {
   applyFilters();
 });
 resetBtn.addEventListener("click", resetFilters);
+closePanelBtn.addEventListener("click", () => setPanelVisibility(false));
+openPanelBtn.addEventListener("click", () => setPanelVisibility(true));
 
 async function init() {
   const response = await fetch("./data/zoning_context.geojson");
   sourceData = await response.json();
   applyFilters();
+  setPanelVisibility(true);
 }
 
 init().catch((err) => {

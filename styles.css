@@ -1,68 +1,82 @@
 :root {
-  --bg: #f1efe8;
-  --panel: #fffef8;
-  --ink: #22211e;
-  --muted: #666154;
-  --accent: #a93422;
-  --border: #d8d2c4;
-  --shadow: 0 12px 30px rgba(34, 33, 30, 0.08);
+  --bg: #f5f7fa;
+  --panel: rgba(255, 255, 255, 0.94);
+  --ink: #23262c;
+  --muted: #5f6774;
+  --accent: #0f5fff;
+  --border: #dbe1ea;
+  --shadow: 0 16px 34px rgba(23, 30, 44, 0.14);
 }
 
 * {
   box-sizing: border-box;
 }
 
+html,
 body {
   margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+body {
   font-family: "Avenir Next", "Franklin Gothic Medium", "Segoe UI", sans-serif;
   color: var(--ink);
-  background: radial-gradient(circle at 10% 5%, #fff6e6 0%, var(--bg) 45%, #e3e6e7 100%);
+  background: var(--bg);
 }
 
-.site-header {
-  padding: 1rem 1.25rem;
-  border-bottom: 1px solid var(--border);
-  background: linear-gradient(135deg, #faf5e9 0%, #ece7db 100%);
+#map {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background: var(--bg);
 }
 
-.site-header h1 {
-  margin: 0;
-  font-size: 1.6rem;
-  letter-spacing: 0.02em;
-}
-
-.site-header p {
-  margin: 0.35rem 0 0;
-  color: var(--muted);
-}
-
-.layout {
-  display: grid;
-  grid-template-columns: 320px 1fr;
-  gap: 1rem;
-  padding: 1rem;
-  min-height: calc(100vh - 94px);
-}
-
-.panel {
+.filter-panel {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  width: min(360px, calc(100vw - 2rem));
+  max-height: calc(100vh - 2rem);
+  overflow: auto;
+  z-index: 1000;
   background: var(--panel);
   border: 1px solid var(--border);
   border-radius: 14px;
   box-shadow: var(--shadow);
-  padding: 1rem;
+  backdrop-filter: blur(6px);
+  padding: 0.95rem;
   display: grid;
-  gap: 0.75rem;
-  align-content: start;
+  gap: 0.72rem;
 }
 
-.panel h2,
-.panel h3 {
+.filter-panel.is-hidden {
+  display: none;
+}
+
+.panel-head {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 0.6rem;
+}
+
+.panel-head h1 {
   margin: 0;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+}
+
+.panel-head p {
+  margin: 0.2rem 0 0;
+  color: var(--muted);
+  font-size: 0.85rem;
 }
 
 label,
 .checkbox {
-  font-size: 0.95rem;
+  font-size: 0.94rem;
 }
 
 select,
@@ -74,70 +88,60 @@ button {
 select,
 button {
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 10px;
   background: #fff;
-  padding: 0.55rem 0.65rem;
-  font-size: 0.95rem;
+  padding: 0.56rem 0.66rem;
+  font-size: 0.93rem;
 }
 
 button {
   background: var(--accent);
-  border-color: #8e2d1f;
+  border-color: #0d52db;
   color: #fff;
   font-weight: 600;
   cursor: pointer;
 }
 
 button:hover {
-  filter: brightness(0.95);
+  filter: brightness(0.97);
 }
 
-.stats,
-.legend {
-  border-top: 1px solid var(--border);
-  padding-top: 0.65rem;
+.ghost-btn {
+  width: auto;
+  background: #fff;
+  color: var(--ink);
+  border-color: var(--border);
+  min-width: 78px;
 }
 
-.legend ul {
-  list-style: none;
-  margin: 0.5rem 0 0;
-  padding: 0;
-  display: grid;
-  gap: 0.35rem;
-}
-
-.swatch {
-  display: inline-block;
-  width: 1rem;
-  height: 1rem;
-  border-radius: 3px;
-  margin-right: 0.45rem;
-  vertical-align: text-bottom;
-}
-
-.swatch.low {
-  background: #7bb684;
-}
-
-.swatch.med {
-  background: #efb055;
-}
-
-.swatch.high {
-  background: #d65f4a;
-}
-
-.map-wrap {
-  min-height: 560px;
-}
-
-#map {
-  width: 100%;
-  height: 100%;
-  min-height: 560px;
+.floating-open {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 1100;
+  width: auto;
   border: 1px solid var(--border);
-  border-radius: 14px;
+  border-radius: 999px;
+  padding: 0.55rem 0.9rem;
   box-shadow: var(--shadow);
+  background: #ffffff;
+  color: var(--ink);
+  display: none;
+}
+
+.floating-open.is-visible {
+  display: inline-flex;
+}
+
+.stats {
+  border-top: 1px solid var(--border);
+  margin-top: 0.1rem;
+  padding-top: 0.68rem;
+  color: var(--muted);
+}
+
+.stats p {
+  margin: 0.15rem 0;
 }
 
 .policy-popup h3 {
@@ -160,14 +164,16 @@ button:hover {
   margin: 0;
 }
 
-@media (max-width: 900px) {
-  .layout {
-    grid-template-columns: 1fr;
-    min-height: auto;
+@media (max-width: 640px) {
+  .filter-panel {
+    top: 0.75rem;
+    left: 0.75rem;
+    width: calc(100vw - 1.5rem);
+    max-height: calc(100vh - 1.5rem);
   }
 
-  .map-wrap,
-  #map {
-    min-height: 68vh;
+  .floating-open {
+    top: 0.75rem;
+    left: 0.75rem;
   }
 }

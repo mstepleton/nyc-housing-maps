@@ -13,55 +13,46 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <header class="site-header">
-      <h1>NYC Housing Policy Map</h1>
-      <p>Interactive starter map for zoning, restrictions, and housing policy context.</p>
-    </header>
+    <div id="map" role="application" aria-label="NYC housing policy map"></div>
 
-    <main class="layout">
-      <aside class="panel" aria-label="Policy filters">
-        <h2>Filters</h2>
+    <button id="openPanelBtn" class="floating-open" type="button" aria-controls="filterPanel" aria-expanded="true">
+      Show filters
+    </button>
 
-        <label for="boroughFilter">Borough</label>
-        <select id="boroughFilter">
-          <option value="all">All boroughs</option>
-          <option value="Manhattan">Manhattan</option>
-          <option value="Brooklyn">Brooklyn</option>
-          <option value="Queens">Queens</option>
-          <option value="Bronx">Bronx</option>
-          <option value="Staten Island">Staten Island</option>
-        </select>
+    <aside id="filterPanel" class="filter-panel" aria-label="Policy filters">
+      <div class="panel-head">
+        <div>
+          <h1>NYC Housing Policy Map</h1>
+          <p>Zoning + restriction explorer</p>
+        </div>
+        <button id="closePanelBtn" class="ghost-btn" type="button" aria-label="Hide filters">Hide</button>
+      </div>
 
-        <label class="checkbox" for="overlayOnly">
-          <input type="checkbox" id="overlayOnly" />
-          Affordable housing overlay only
-        </label>
+      <label for="boroughFilter">Borough</label>
+      <select id="boroughFilter">
+        <option value="all">All boroughs</option>
+        <option value="Manhattan">Manhattan</option>
+        <option value="Brooklyn">Brooklyn</option>
+        <option value="Queens">Queens</option>
+        <option value="Bronx">Bronx</option>
+        <option value="Staten Island">Staten Island</option>
+      </select>
 
-        <label for="minFar">Minimum allowed FAR: <span id="minFarLabel">0.0</span></label>
-        <input id="minFar" type="range" min="0" max="16" step="0.5" value="0" />
+      <label class="checkbox" for="overlayOnly">
+        <input type="checkbox" id="overlayOnly" />
+        Affordable housing overlay only
+      </label>
 
-        <button id="resetBtn" type="button">Reset filters</button>
+      <label for="minFar">Minimum allowed FAR: <span id="minFarLabel">0.0</span></label>
+      <input id="minFar" type="range" min="0" max="16" step="0.5" value="0" />
 
-        <section class="stats" aria-live="polite">
-          <h3>Visible Areas</h3>
-          <p><strong id="visibleCount">0</strong> policy areas</p>
-          <p>Average allowed FAR: <strong id="avgFar">0.0</strong></p>
-        </section>
+      <button id="resetBtn" type="button">Reset filters</button>
 
-        <section class="legend">
-          <h3>FAR Legend</h3>
-          <ul>
-            <li><span class="swatch low"></span>Low density (0-4)</li>
-            <li><span class="swatch med"></span>Medium density (4-8)</li>
-            <li><span class="swatch high"></span>High density (8+)</li>
-          </ul>
-        </section>
-      </aside>
-
-      <section class="map-wrap">
-        <div id="map" role="application" aria-label="NYC housing policy map"></div>
+      <section class="stats" aria-live="polite">
+        <p><strong id="visibleCount">0</strong> areas visible</p>
+        <p>Average FAR: <strong id="avgFar">0.0</strong></p>
       </section>
-    </main>
+    </aside>
 
     <script
       src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
