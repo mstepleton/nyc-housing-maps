@@ -42,11 +42,12 @@ let geoLayer = null;
 
 function setPanelVisibility(isVisible) {
   filterPanel.classList.toggle("is-hidden", !isVisible);
+  filterPanel.setAttribute("aria-hidden", isVisible ? "false" : "true");
+
   openPanelBtn.classList.toggle("is-visible", !isVisible);
   openPanelBtn.setAttribute("aria-expanded", isVisible ? "true" : "false");
 
-  // Leaflet needs a size refresh when overlays are toggled on top.
-  setTimeout(() => map.invalidateSize(), 10);
+  setTimeout(() => map.invalidateSize(), 20);
 }
 
 function applyFilters() {
@@ -117,6 +118,12 @@ minFar.addEventListener("input", () => {
 resetBtn.addEventListener("click", resetFilters);
 closePanelBtn.addEventListener("click", () => setPanelVisibility(false));
 openPanelBtn.addEventListener("click", () => setPanelVisibility(true));
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    setPanelVisibility(false);
+  }
+});
 
 async function init() {
   const response = await fetch("./data/zoning_context.geojson");
