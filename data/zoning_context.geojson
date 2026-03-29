@@ -1,0 +1,101 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Inwood Core Upzoning",
+        "borough": "Manhattan",
+        "allowed_far": 6.5,
+        "height_cap_ft": 145,
+        "affordable_overlay": true,
+        "special_district": "Inwood Rezoning Area",
+        "notes": "Higher-density mixed-use corridor near transit nodes."
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[-73.9349, 40.8689], [-73.9308, 40.8689], [-73.9308, 40.8654], [-73.9349, 40.8654], [-73.9349, 40.8689]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Gowanus Mixed-Use District",
+        "borough": "Brooklyn",
+        "allowed_far": 10.0,
+        "height_cap_ft": 225,
+        "affordable_overlay": true,
+        "special_district": "Gowanus Special District",
+        "notes": "Contextual bulk controls paired with mandatory affordability."
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[-73.9968, 40.6766], [-73.9899, 40.6766], [-73.9899, 40.6709], [-73.9968, 40.6709], [-73.9968, 40.6766]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "SoHo/NoHo Historic Context",
+        "borough": "Manhattan",
+        "allowed_far": 5.0,
+        "height_cap_ft": 120,
+        "affordable_overlay": false,
+        "special_district": "Historic Preservation Area",
+        "notes": "Landmark and contextual envelope constraints limit redevelopment."
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[-74.0032, 40.7296], [-73.9954, 40.7296], [-73.9954, 40.7237], [-74.0032, 40.7237], [-74.0032, 40.7296]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Downtown Jamaica Transit Core",
+        "borough": "Queens",
+        "allowed_far": 8.0,
+        "height_cap_ft": 180,
+        "affordable_overlay": true,
+        "special_district": "Downtown Jamaica Plan",
+        "notes": "High-density residential allowance tied to transit accessibility."
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[-73.8069, 40.7045], [-73.7992, 40.7045], [-73.7992, 40.6985], [-73.8069, 40.6985], [-73.8069, 40.7045]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Southern Boulevard Corridor",
+        "borough": "Bronx",
+        "allowed_far": 4.2,
+        "height_cap_ft": 100,
+        "affordable_overlay": false,
+        "special_district": "Corridor Residential District",
+        "notes": "Moderate density housing where lot depth and street wall rules are strict."
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[-73.8926, 40.8219], [-73.8866, 40.8219], [-73.8866, 40.8168], [-73.8926, 40.8168], [-73.8926, 40.8219]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "St. George Waterfront",
+        "borough": "Staten Island",
+        "allowed_far": 3.0,
+        "height_cap_ft": 85,
+        "affordable_overlay": false,
+        "special_district": "North Shore Context Area",
+        "notes": "Lower-rise context controls with selective growth near ferry access."
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[-74.0828, 40.6488], [-74.0758, 40.6488], [-74.0758, 40.6434], [-74.0828, 40.6434], [-74.0828, 40.6488]]]
+      }
+    }
+  ]
+}
